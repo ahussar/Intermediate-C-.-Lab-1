@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+void passByValue(int num);
+void passByReference(int &num);
+
+int main() {
+	int num1;
+	int *pnum = new int;
+	*pnum = 5;
+	num1 = 3;
+
+	passByValue(num1);
+	cout << "main: The current value of num1 is " << num1 << endl;
+
+	passByReference(*pnum);
+	cout << "main: The current value of pnum is " << pnum << endl;
+
+	system("PAUSE");
+	return 0;
+}
+
+/*
+Function: passByValue
+-Outputs name of the function.
+-Call PassByValue and pass in num1 as the argument.
+-Modifies passe din value by decreasing it by 1
+-Outputs new value of passed in value
+*/
+void passByValue(int num) {
+	cout << " You are in the function passByValue" << endl;
+	num--;
+	cout << "function: The new value is " << num << endl;
+	return;
+}
+
+
+
+/*
+Function: PassByRef
+-Accepts a reference variable as an argument
+Modify the input value, setting it to 50
+-Output the value to the console.
+*/
+void passByReference(int &num) {
+	cout << "You are in the function passByReference." << endl;
+	num = 50;
+	cout << "Funcion: The current value is " << num << endl;
+	return;
+}
