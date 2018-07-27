@@ -1,20 +1,57 @@
 #include <iostream>
+#include <string>
+#include "Person.h"
 using namespace std;
 
 void passByValue(int num);
 void passByReference(int &num);
+void ModifyPerson(Person &a);
 
 int main() {
 	int num1;
-	int *pnum = new int;
+	int num2;
+	int *pnum = &num2;
 	*pnum = 5;
 	num1 = 3;
+	cout << "num2: " << num2 << endl;
+	cout << "pnum: " << *pnum << endl;
 
 	passByValue(num1);
 	cout << "main: The current value of num1 is " << num1 << endl;
 
 	passByReference(*pnum);
-	cout << "main: The current value of pnum is " << pnum << endl;
+	cout << "main: The current value of pnum is " << *pnum << endl;
+
+	/*
+	passByValue(pnum);
+	error E0167 "argument type int* is incompatible with pararmeter of type int" 
+	error C2664 "void passByValue(int): cannot convert argument 1 from int* to int"
+	*/
+
+	double *pnum2 = new double;
+	*pnum2 = 2.0;
+	cout << "pnum2: " << *pnum2 << endl;
+	delete pnum2;
+
+	/*
+	cout << *pnum2 << endl;
+	program crashes.
+	Exception thrown: read access violation.
+	**pnum2** was 0x8123.
+	*/
+	
+	Person alex("Alex", 23, 5.9, 167.5);
+	cout << "Name: " << alex.getName() << endl;
+	cout << "Age: " << alex.getAge() << endl;
+	cout << "Height: " << alex.getHeight() << endl;
+	cout << "Weight: " << alex.getWeight() << endl;
+
+	ModifyPerson(alex);
+
+	cout << "Name: " << alex.getName() << endl;
+	cout << "Age: " << alex.getAge() << endl;
+	cout << "Height: " << alex.getHeight() << endl;
+	cout << "Weight: " << alex.getWeight() << endl;
 
 	system("PAUSE");
 	return 0;
@@ -46,5 +83,13 @@ void passByReference(int &num) {
 	cout << "You are in the function passByReference." << endl;
 	num = 50;
 	cout << "Funcion: The current value is " << num << endl;
+	return;
+}
+
+void ModifyPerson(Person &a) {
+	string newName;
+	cout << "Please type the new name you would like to input: ";
+	cin >> newName;
+	a.setName(newName);
 	return;
 }
